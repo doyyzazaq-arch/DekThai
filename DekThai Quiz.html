@@ -1,0 +1,630 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>DekThai Quiz</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;600;700&display=swap">
+
+<style>
+  :root {
+    --bg: #F8FAFF;
+    --bg-alt: #EFF4FF;
+    --surface: #FFFFFF;
+    --border: #D6E2FF;
+    --fg: #0D1B3E;
+    --fg-mid: #3A4F7A;
+    --fg-muted: #7A8FB0;
+    --accent: #1B4FD8;
+    --accent-light: #3D6EF8;
+    --accent-subtle: #E8EFFE;
+    --shadow-sm: 0 1px 4px rgba(27,79,216,0.07);
+    --shadow-md: 0 4px 24px rgba(27,79,216,0.12);
+    --r: 14px;
+
+    --font-display: 'IBM Plex Sans Thai', 'Sarabun', system-ui, sans-serif;
+    --font-body: 'Sarabun', system-ui, sans-serif;
+
+    /* Faculty colors */
+    --c-med: #E53935; --c-med-s: #FFF0F0;
+    --c-eng: #1B4FD8; --c-eng-s: #E8EFFE;
+    --c-acc: #0E8A5F; --c-acc-s: #E5F5EF;
+    --c-law: #7B3FBF; --c-law-s: #F3EEFF;
+    --c-edu: #C07C00; --c-edu-s: #FFF4DC;
+    --c-arc: #D84315; --c-arc-s: #FFF3EE;
+    --c-cs:  #0277BD; --c-cs-s:  #E1F4FF;
+    --c-nur: #E91E8C; --c-nur-s: #FFF0F8;
+    --c-psy: #558B2F; --c-psy-s: #F0F8E8;
+    --c-biz: #F57C00; --c-biz-s: #FFF8EE;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0A1222; --bg-alt: #0F1A30; --surface: #162038;
+      --border: #1E2E50; --fg: #E8EFF8; --fg-mid: #9BAECE;
+      --fg-muted: #5A6E90; --accent: #4A7FFF; --accent-light: #6B97FF;
+      --accent-subtle: #0D1E3D; --shadow-sm: 0 1px 4px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.4); color-scheme: dark;
+      --c-med-s:#2A0A0A; --c-eng-s:#0D1E3D; --c-acc-s:#0A2518;
+      --c-law-s:#1A0E2A; --c-edu-s:#261800; --c-arc-s:#2A1000;
+      --c-cs-s:#001E2E; --c-nur-s:#2A0018; --c-psy-s:#0E1E04; --c-biz-s:#2A1400;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0A1222; --bg-alt: #0F1A30; --surface: #162038;
+    --border: #1E2E50; --fg: #E8EFF8; --fg-mid: #9BAECE;
+    --fg-muted: #5A6E90; --accent: #4A7FFF; --accent-light: #6B97FF;
+    --accent-subtle: #0D1E3D; --shadow-sm: 0 1px 4px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 24px rgba(0,0,0,0.4); color-scheme: dark;
+    --c-med-s:#2A0A0A; --c-eng-s:#0D1E3D; --c-acc-s:#0A2518;
+    --c-law-s:#1A0E2A; --c-edu-s:#261800; --c-arc-s:#2A1000;
+    --c-cs-s:#001E2E; --c-nur-s:#2A0018; --c-psy-s:#0E1E04; --c-biz-s:#2A1400;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.65;
+    font-size: 16px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    min-height: 100%;
+  }
+
+  .page { max-width: 680px; margin: 0 auto; padding-block: 40px 60px; }
+
+  /* Back link */
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 14px; font-weight: 500; color: var(--fg-muted);
+    text-decoration: none; margin-bottom: 28px;
+    transition: color 0.15s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  /* Progress bar */
+  .progress-wrap { margin-bottom: 28px; }
+  .progress-meta {
+    display: flex; justify-content: space-between;
+    font-size: 13px; color: var(--fg-muted); margin-bottom: 8px;
+  }
+  .progress-meta strong { color: var(--fg); font-weight: 600; }
+  .progress-bg {
+    height: 6px; background: var(--border); border-radius: 99px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--accent); border-radius: 99px;
+    transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* Question card */
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 20px;
+  }
+
+  .q-number {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+  }
+
+  .q-text {
+    font-family: var(--font-display);
+    font-size: clamp(17px, 2.5vw, 21px);
+    font-weight: 700; color: var(--fg);
+    line-height: 1.35; text-wrap: balance;
+    margin-bottom: 24px;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+
+  .opt {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 14px 16px;
+    cursor: pointer; transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    text-align: left; width: 100%; font-family: var(--font-body);
+    font-size: 15px; color: var(--fg-mid);
+  }
+
+  .opt:hover { border-color: var(--accent); background: var(--accent-subtle); color: var(--fg); }
+
+  .opt.selected {
+    border-color: var(--accent); background: var(--accent-subtle);
+    color: var(--accent); font-weight: 600;
+  }
+
+  .opt-letter {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: var(--border); color: var(--fg-muted);
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 0.15s, color 0.15s;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .opt.selected .opt-letter { background: var(--accent); color: white; }
+
+  /* Nav buttons */
+  .q-nav { display: flex; gap: 12px; align-items: center; }
+
+  .btn-prev {
+    background: var(--surface); border: 1.5px solid var(--border);
+    color: var(--fg-mid); font-family: var(--font-body); font-size: 15px;
+    font-weight: 500; padding: 12px 22px; border-radius: 10px;
+    cursor: pointer; transition: border-color 0.15s, color 0.15s;
+  }
+  .btn-prev:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-prev:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .btn-next {
+    background: var(--accent); color: white;
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    padding: 12px 28px; border-radius: 10px;
+    border: none; cursor: pointer;
+    transition: background 0.15s, transform 0.1s; flex: 1;
+  }
+  .btn-next:hover { background: var(--accent-light); }
+  .btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-next:active { transform: scale(0.98); }
+
+  /* ── RESULTS ── */
+  #result-screen { display: none; }
+
+  .result-header { text-align: center; margin-bottom: 36px; }
+  .result-header .emoji { font-size: 48px; margin-bottom: 12px; }
+  .result-title {
+    font-family: var(--font-display); font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700; color: var(--fg); letter-spacing: -0.02em; margin-bottom: 6px;
+  }
+  .result-sub { font-size: 15px; color: var(--fg-mid); }
+
+  /* Top pick */
+  .top-pick {
+    border-radius: var(--r); padding: 24px 28px;
+    margin-bottom: 20px; border: 2px solid;
+    position: relative; overflow: hidden;
+  }
+  .top-pick-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 6px; opacity: 0.75;
+  }
+  .top-pick-name {
+    font-family: var(--font-display); font-size: 26px; font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .top-pick-pct {
+    font-size: 13px; opacity: 0.7; margin-bottom: 12px;
+  }
+  .top-pick-desc { font-size: 14px; line-height: 1.65; opacity: 0.85; }
+
+  .top-pick-badge {
+    position: absolute; top: 20px; right: 20px;
+    font-size: 32px; font-weight: 900; opacity: 0.12;
+    font-family: var(--font-display);
+  }
+
+  /* All faculties */
+  .all-title {
+    font-family: var(--font-display); font-size: 16px; font-weight: 700;
+    color: var(--fg); margin-bottom: 14px;
+  }
+
+  .fac-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+
+  .fac-row {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px;
+    display: flex; align-items: center; gap: 14px;
+  }
+
+  .fac-icon {
+    width: 38px; height: 38px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+
+  .fac-info { flex: 1; min-width: 0; }
+  .fac-name { font-size: 14px; font-weight: 600; color: var(--fg); margin-bottom: 4px; }
+
+  .bar-wrap { height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 99px; transition: width 1s cubic-bezier(0.4,0,0.2,1); }
+
+  .fac-pct {
+    font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;
+    min-width: 44px; text-align: right; flex-shrink: 0;
+  }
+
+  /* Retake */
+  .btn-retake {
+    display: block; width: 100%; background: var(--accent-subtle);
+    color: var(--accent); font-family: var(--font-body); font-size: 15px;
+    font-weight: 600; padding: 14px; border-radius: 10px;
+    border: 1.5px solid var(--border); cursor: pointer; text-align: center;
+    transition: background 0.15s;
+  }
+  .btn-retake:hover { background: var(--border); }
+
+  @media (max-width: 480px) {
+    .q-card { padding: 22px 18px; }
+    .page { padding-block: 24px 48px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, .progress-fill, .bar-fill { transition: none !important; }
+  }
+</style>
+
+<!-- QUIZ SCREEN -->
+<div class="page">
+  <a href="index.html" class="back-link">← กลับหน้าหลัก</a>
+
+  <div id="quiz-screen">
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span>ข้อ <strong id="q-current">1</strong> จาก <strong>15</strong></span>
+        <span id="q-pct-label">0%</span>
+      </div>
+      <div class="progress-bg">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-number" id="q-number">คำถามที่ 1</div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options-wrap"></div>
+    </div>
+
+    <div class="q-nav">
+      <button class="btn-prev" id="btn-prev" disabled onclick="prevQ()">← ก่อนหน้า</button>
+      <button class="btn-next" id="btn-next" disabled onclick="nextQ()">ถัดไป →</button>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="result-screen">
+    <div class="result-header">
+      <div class="emoji">🎯</div>
+      <div class="result-title">ผลการวิเคราะห์ของคุณ</div>
+      <div class="result-sub">จากคำตอบ 15 ข้อ เราวิเคราะห์ความเหมาะสมกับ 10 สาขาให้แล้ว</div>
+    </div>
+
+    <div class="top-pick" id="top-pick-card"></div>
+
+    <div class="all-title">ความเหมาะสมกับทุกสาขา</div>
+    <div class="fac-list" id="fac-list"></div>
+
+    <button class="btn-retake" onclick="retake()">ทำ Quiz ใหม่อีกครั้ง</button>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    text: "เวลาเรียนวิชาอะไร คุณรู้สึกสนุกและมีพลังมากที่สุด?",
+    opts: ["คณิตศาสตร์และตรรกะ","วิทยาศาสตร์และการทดลอง","ภาษาและการเขียน","ศิลปะและการออกแบบ"],
+    weights: [
+      {eng:3,acc:2,cs:3,biz:1},
+      {med:3,nur:2,psy:2,edu:1},
+      {law:3,edu:2,psy:1,biz:1},
+      {arc:3,edu:1,psy:1,nur:1}
+    ]
+  },
+  {
+    text: "คุณชอบทำงานแบบไหนมากกว่ากัน?",
+    opts: ["ทำงานคนเดียว วิเคราะห์ข้อมูล","ทำงานเป็นทีม ประสานงาน","พบปะผู้คน ช่วยเหลือโดยตรง","สร้างหรือออกแบบสิ่งใหม่"],
+    weights: [
+      {eng:2,cs:3,acc:2,law:1},
+      {biz:3,edu:2,law:2,acc:1},
+      {med:2,nur:3,psy:3,edu:2},
+      {arc:3,eng:2,cs:2,biz:1}
+    ]
+  },
+  {
+    text: "ถ้ามีเพื่อนมาปรึกษาปัญหา คุณมักจะ...",
+    opts: ["วิเคราะห์หาทางออกเชิงตรรกะ","รับฟังและเข้าใจความรู้สึก","แนะนำข้อมูลและทางเลือก","ช่วยหาคนหรือผู้เชี่ยวชาญที่เหมาะ"],
+    weights: [
+      {eng:2,cs:2,acc:2,law:2},
+      {psy:4,nur:2,edu:2,med:1},
+      {law:3,biz:2,med:2,acc:1},
+      {biz:2,edu:3,nur:2,psy:1}
+    ]
+  },
+  {
+    text: "คุณรู้สึกอย่างไรกับการดูแลผู้อื่นโดยตรง (เช่น คนป่วย เด็ก)?",
+    opts: ["ชอบมาก มีความหมายมาก","ทำได้ แต่ไม่ใช่สิ่งที่ชอบที่สุด","ชอบเป็นครั้งคราว","ไม่ค่อยถนัด ชอบงานเชิงระบบมากกว่า"],
+    weights: [
+      {med:4,nur:4,psy:3,edu:2},
+      {edu:2,psy:2,biz:1,law:1},
+      {nur:1,edu:1,biz:1,acc:1},
+      {eng:2,cs:3,acc:2,arc:1}
+    ]
+  },
+  {
+    text: "เวลาเห็นอาคาร สถานที่ หรืองานออกแบบสวยๆ คุณรู้สึกอย่างไร?",
+    opts: ["ตื่นเต้นมาก อยากรู้ว่าออกแบบยังไง","ชอบ แต่สนใจแค่ว่าสวยไหม","ไม่ค่อยสังเกต ไม่ได้สนใจพิเศษ","สนใจความแข็งแรง โครงสร้าง มากกว่าความสวย"],
+    weights: [
+      {arc:4,eng:1,cs:1,biz:1},
+      {arc:2,edu:1,psy:1,biz:1},
+      {acc:1,law:1,cs:1,med:1},
+      {eng:3,cs:1,arc:1,acc:1}
+    ]
+  },
+  {
+    text: "คุณสนใจเรื่องกฎหมาย สิทธิ์ หรือความยุติธรรมระดับไหน?",
+    opts: ["สนใจมาก ชอบถกเถียงโต้แย้ง","สนใจปานกลาง ถ้าเกี่ยวกับตัวเอง","ไม่ค่อยสนใจ","สนใจแต่เรื่องธุรกิจและสัญญา"],
+    weights: [
+      {law:4,psy:1,edu:1,biz:1},
+      {law:2,biz:2,acc:1,psy:1},
+      {eng:1,cs:1,arc:1,med:1},
+      {biz:3,law:2,acc:2,edu:1}
+    ]
+  },
+  {
+    text: "คุณชอบทำงานกับตัวเลขและข้อมูลแค่ไหน?",
+    opts: ["ชอบมาก ทำงานกับตัวเลขทั้งวันได้","ชอบพอประมาณ ถ้ามีความหมาย","ทำได้แต่ไม่ใช่สิ่งที่ชอบ","ไม่ชอบเลย ชอบงาน creative มากกว่า"],
+    weights: [
+      {acc:4,eng:3,cs:3,biz:2},
+      {biz:2,med:2,psy:2,law:1},
+      {edu:2,nur:1,psy:2,law:2},
+      {arc:3,edu:2,psy:1,nur:1}
+    ]
+  },
+  {
+    text: "ถ้าต้องเลือกโปรเจกต์ทำ คุณจะเลือกอะไร?",
+    opts: ["สร้างแอปหรือโปรแกรมแก้ปัญหา","วิจัยและเขียนรายงานวิชาการ","จัดกิจกรรมสอนหรืออบรมคน","ออกแบบผลิตภัณฑ์หรืออาคาร"],
+    weights: [
+      {cs:4,eng:3,biz:2,acc:1},
+      {med:2,law:3,psy:2,acc:2},
+      {edu:4,psy:2,nur:2,biz:1},
+      {arc:4,eng:2,cs:1,biz:1}
+    ]
+  },
+  {
+    text: "คุณคิดว่าตัวเองมีทักษะด้านไหนโดดเด่นที่สุด?",
+    opts: ["วิเคราะห์และแก้ปัญหา","สื่อสารและโน้มน้าวคน","ดูแลและเห็นอกเห็นใจ","สร้างและออกแบบ"],
+    weights: [
+      {eng:3,cs:3,acc:2,law:2},
+      {law:3,biz:3,edu:2,psy:2},
+      {med:2,nur:3,psy:3,edu:2},
+      {arc:3,cs:2,eng:2,biz:1}
+    ]
+  },
+  {
+    text: "อนาคตคุณอยากทำงานในสภาพแวดล้อมแบบไหน?",
+    opts: ["ออฟฟิศ บริษัท องค์กร","โรงพยาบาล คลินิก ภาคสาธารณสุข","โรงเรียน มหาวิทยาลัย ภาคการศึกษา","Site งาน โรงงาน ภาคอุตสาหกรรม"],
+    weights: [
+      {biz:3,acc:3,law:2,cs:2},
+      {med:4,nur:3,psy:2,edu:1},
+      {edu:4,psy:2,nur:1,law:1},
+      {eng:4,arc:2,cs:1,acc:1}
+    ]
+  },
+  {
+    text: "คุณรู้สึกอย่างไรกับการตัดสินใจภายใต้ความกดดันสูง?",
+    opts: ["ชอบ ยิ่งกดดันยิ่งคิดได้ดี","ทำได้ถ้าเตรียมพร้อมดี","ไม่ค่อยชอบ ชอบงานที่มีเวลาคิด","ขึ้นอยู่กับสถานการณ์"],
+    weights: [
+      {med:4,law:3,eng:2,biz:2},
+      {nur:3,acc:2,cs:2,edu:2},
+      {psy:2,acc:2,arc:2,cs:2},
+      {biz:2,eng:2,psy:2,edu:1}
+    ]
+  },
+  {
+    text: "ในกลุ่มเพื่อน คุณมักมีบทบาทอะไร?",
+    opts: ["คนวางแผนและจัดการ","คนที่ทุกคนมาปรึกษา","คนที่คิดไอเดียสร้างสรรค์","คนที่ลงมือทำและแก้ปัญหาเฉพาะหน้า"],
+    weights: [
+      {biz:3,acc:2,law:2,eng:2},
+      {psy:4,edu:3,nur:2,law:1},
+      {arc:3,cs:3,biz:2,edu:1},
+      {eng:3,med:2,nur:2,cs:2}
+    ]
+  },
+  {
+    text: "คุณสนใจเรื่องธุรกิจและการทำเงินระดับไหน?",
+    opts: ["สนใจมาก อยากมีธุรกิจเป็นของตัวเอง","สนใจปานกลาง ถ้ามีรายได้ดีพอ","ไม่ค่อยสนใจ เน้นทำงานที่รัก","ไม่สนใจ เน้นงานที่มีคุณค่าสังคม"],
+    weights: [
+      {biz:4,acc:3,law:2,cs:1},
+      {eng:2,cs:2,acc:2,biz:2},
+      {arc:2,edu:2,psy:2,med:2},
+      {med:2,nur:2,edu:3,psy:2}
+    ]
+  },
+  {
+    text: "คุณชอบเรียนรู้ด้วยวิธีไหนมากที่สุด?",
+    opts: ["อ่านตำราและวิจัยลึกๆ","ทดลองและลงมือทำ","สอนและอธิบายให้คนอื่น","ดูและวิเคราะห์กรณีตัวอย่าง"],
+    weights: [
+      {med:3,law:3,psy:2,acc:2},
+      {eng:3,cs:3,arc:2,nur:2},
+      {edu:4,psy:2,nur:2,biz:1},
+      {law:3,biz:3,med:2,acc:2}
+    ]
+  },
+  {
+    text: "10 ปีข้างหน้า คุณอยากให้คนรู้จักคุณในฐานะอะไร?",
+    opts: ["ผู้เชี่ยวชาญด้านเทคนิคที่คนเชื่อถือ","คนที่ช่วยชีวิตหรือดูแลสุขภาพผู้คน","ครู อาจารย์ หรือนักให้คำปรึกษา","ผู้นำหรือนักธุรกิจที่ประสบความสำเร็จ"],
+    weights: [
+      {eng:3,cs:3,acc:2,law:2},
+      {med:4,nur:3,psy:2,edu:1},
+      {edu:4,psy:3,nur:1,law:1},
+      {biz:4,law:2,acc:2,arc:1}
+    ]
+  }
+];
+
+const FACULTIES = [
+  { id:'med', name:'แพทยศาสตร์',     icon:'🩺', color:'--c-med', bg:'--c-med-s',
+    desc:'ดูแลรักษาผู้ป่วย วินิจฉัยโรค ต้องการความอดทนสูงและทักษะวิทยาศาสตร์' },
+  { id:'eng', name:'วิศวกรรมศาสตร์',  icon:'⚙️', color:'--c-eng', bg:'--c-eng-s',
+    desc:'ออกแบบและสร้างระบบ เครื่องจักร สิ่งก่อสร้าง ต้องการคณิตและวิทยาศาสตร์' },
+  { id:'acc', name:'บัญชี',           icon:'📊', color:'--c-acc', bg:'--c-acc-s',
+    desc:'จัดการการเงิน ตรวจสอบบัญชี วางแผนภาษี ต้องการความละเอียดรอบคอบ' },
+  { id:'law', name:'นิติศาสตร์',      icon:'⚖️', color:'--c-law', bg:'--c-law-s',
+    desc:'ว่าความ ให้คำปรึกษากฎหมาย ต้องการทักษะโต้แย้งและการวิเคราะห์' },
+  { id:'edu', name:'ครุศาสตร์/ศึกษา', icon:'📚', color:'--c-edu', bg:'--c-edu-s',
+    desc:'สอนและพัฒนาคน ออกแบบหลักสูตร ต้องการความอดทนและทักษะสื่อสาร' },
+  { id:'arc', name:'สถาปัตยกรรม',     icon:'🏛️', color:'--c-arc', bg:'--c-arc-s',
+    desc:'ออกแบบอาคารและพื้นที่ ต้องการความคิดสร้างสรรค์และทักษะเชิงพื้นที่' },
+  { id:'cs',  name:'วิทยาการคอมพิวเตอร์', icon:'💻', color:'--c-cs', bg:'--c-cs-s',
+    desc:'พัฒนาซอฟต์แวร์ AI วิเคราะห์ข้อมูล ต้องการตรรกะและความชอบแก้ปัญหา' },
+  { id:'nur', name:'พยาบาลศาสตร์',    icon:'💊', color:'--c-nur', bg:'--c-nur-s',
+    desc:'ดูแลผู้ป่วยใกล้ชิด ทำงานร่วมกับทีมแพทย์ ต้องการความเห็นอกเห็นใจ' },
+  { id:'psy', name:'จิตวิทยา',        icon:'🧠', color:'--c-psy', bg:'--c-psy-s',
+    desc:'เข้าใจพฤติกรรมมนุษย์ ให้คำปรึกษา วิจัยพฤติกรรม ต้องการทักษะฟัง' },
+  { id:'biz', name:'บริหารธุรกิจ',    icon:'💼', color:'--c-biz', bg:'--c-biz-s',
+    desc:'บริหารองค์กร การตลาด การจัดการ ต้องการทักษะสื่อสารและความเป็นผู้นำ' }
+];
+
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+
+function renderQ() {
+  const q = QUESTIONS[current];
+  document.getElementById('q-number').textContent = `คำถามที่ ${current + 1}`;
+  document.getElementById('q-text').textContent = q.text;
+  document.getElementById('q-current').textContent = current + 1;
+
+  const pct = Math.round((current / QUESTIONS.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('q-pct-label').textContent = pct + '%';
+
+  const wrap = document.getElementById('options-wrap');
+  wrap.innerHTML = '';
+  const letters = ['ก','ข','ค','ง'];
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt' + (answers[current] === i ? ' selected' : '');
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${opt}</span>`;
+    btn.onclick = () => selectOpt(i);
+    wrap.appendChild(btn);
+  });
+
+  document.getElementById('btn-prev').disabled = current === 0;
+  document.getElementById('btn-next').disabled = answers[current] === null;
+  document.getElementById('btn-next').textContent =
+    current === QUESTIONS.length - 1 ? 'ดูผลลัพธ์ ✦' : 'ถัดไป →';
+}
+
+function selectOpt(i) {
+  answers[current] = i;
+  document.querySelectorAll('.opt').forEach((btn, idx) => {
+    btn.classList.toggle('selected', idx === i);
+  });
+  document.getElementById('btn-next').disabled = false;
+}
+
+function nextQ() {
+  if (answers[current] === null) return;
+  if (current === QUESTIONS.length - 1) { showResult(); return; }
+  current++;
+  renderQ();
+}
+
+function prevQ() {
+  if (current === 0) return;
+  current--;
+  renderQ();
+}
+
+function computeScores() {
+  const scores = {};
+  FACULTIES.forEach(f => scores[f.id] = 0);
+
+  QUESTIONS.forEach((q, qi) => {
+    const ans = answers[qi];
+    if (ans === null) return;
+    const w = q.weights[ans];
+    Object.entries(w).forEach(([fid, v]) => {
+      if (scores[fid] !== undefined) scores[fid] += v;
+    });
+  });
+
+  // Normalize to %
+  const max = Math.max(...Object.values(scores));
+  const min = Math.min(...Object.values(scores));
+  const range = max - min || 1;
+
+  const pcts = {};
+  Object.entries(scores).forEach(([fid, s]) => {
+    pcts[fid] = Math.round(20 + ((s - min) / range) * 75);
+  });
+  return pcts;
+}
+
+function showResult() {
+  document.getElementById('quiz-screen').style.display = 'none';
+  const rs = document.getElementById('result-screen');
+  rs.style.display = 'block';
+
+  const pcts = computeScores();
+  const sorted = FACULTIES
+    .map(f => ({ ...f, pct: pcts[f.id] }))
+    .sort((a, b) => b.pct - a.pct);
+
+  // Top pick
+  const top = sorted[0];
+  const topCard = document.getElementById('top-pick-card');
+  topCard.style.background = `var(${top.bg})`;
+  topCard.style.borderColor = `var(${top.color})`;
+  topCard.style.color = `var(${top.color})`;
+  topCard.innerHTML = `
+    <div class="top-pick-badge">${top.pct}%</div>
+    <div class="top-pick-label">อันดับ 1 ที่เหมาะกับคุณ</div>
+    <div class="top-pick-name">${top.icon} ${top.name}</div>
+    <div class="top-pick-pct">ความเหมาะสม ${top.pct}%</div>
+    <div class="top-pick-desc">${top.desc}</div>
+  `;
+
+  // All list
+  const list = document.getElementById('fac-list');
+  list.innerHTML = '';
+  sorted.forEach((f, rank) => {
+    const row = document.createElement('div');
+    row.className = 'fac-row';
+    row.innerHTML = `
+      <div class="fac-icon" style="background:var(${f.bg});color:var(${f.color})">${f.icon}</div>
+      <div class="fac-info">
+        <div class="fac-name">${rank + 1}. ${f.name}</div>
+        <div class="bar-wrap">
+          <div class="bar-fill" style="background:var(${f.color});width:0%" data-w="${f.pct}"></div>
+        </div>
+      </div>
+      <div class="fac-pct" style="color:var(${f.color})">${f.pct}%</div>
+    `;
+    list.appendChild(row);
+  });
+
+  // Animate bars
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.bar-fill').forEach(el => {
+        el.style.width = el.dataset.w + '%';
+      });
+    });
+  });
+
+  // Update progress to 100%
+  document.getElementById('progress-fill').style.width = '100%';
+  document.getElementById('q-pct-label').textContent = '100%';
+}
+
+function retake() {
+  current = 0;
+  answers = new Array(QUESTIONS.length).fill(null);
+  document.getElementById('result-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'block';
+  renderQ();
+}
+
+// Init
+renderQ();
+</script>
+
+</body></html>

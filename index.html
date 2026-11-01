@@ -1,0 +1,1174 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>DekThai</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+
+<style>
+  /* Layout: full-width sections, centered content max 1100px, single-column on mobile */
+
+  :root {
+    --bg: #F8FAFF;
+    --bg-alt: #EFF4FF;
+    --surface: #FFFFFF;
+    --border: #D6E2FF;
+    --fg: #0D1B3E;
+    --fg-mid: #3A4F7A;
+    --fg-muted: #7A8FB0;
+    --accent: #1B4FD8;
+    --accent-light: #3D6EF8;
+    --accent-subtle: #E8EFFE;
+    --green: #0E8A5F;
+    --green-subtle: #E5F5EF;
+    --gold: #C07C00;
+    --gold-subtle: #FFF4DC;
+    --shadow-sm: 0 1px 4px rgba(27,79,216,0.07);
+    --shadow-md: 0 4px 20px rgba(27,79,216,0.10);
+    --r: 12px;
+
+    --font-display: 'IBM Plex Sans Thai', 'Sarabun', system-ui, sans-serif;
+    --font-body: 'Sarabun', system-ui, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0A1222;
+      --bg-alt: #0F1A30;
+      --surface: #162038;
+      --border: #1E2E50;
+      --fg: #E8EFF8;
+      --fg-mid: #9BAECE;
+      --fg-muted: #5A6E90;
+      --accent: #4A7FFF;
+      --accent-light: #6B97FF;
+      --accent-subtle: #0D1E3D;
+      --green: #2CB87C;
+      --green-subtle: #0A2518;
+      --gold: #F0A030;
+      --gold-subtle: #261800;
+      --shadow-sm: 0 1px 4px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0A1222;
+    --bg-alt: #0F1A30;
+    --surface: #162038;
+    --border: #1E2E50;
+    --fg: #E8EFF8;
+    --fg-mid: #9BAECE;
+    --fg-muted: #5A6E90;
+    --accent: #4A7FFF;
+    --accent-light: #6B97FF;
+    --accent-subtle: #0D1E3D;
+    --green: #2CB87C;
+    --green-subtle: #0A2518;
+    --gold: #F0A030;
+    --gold-subtle: #261800;
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.65;
+    font-size: 16px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  /* Sections */
+  .section-wrap {
+    width: 100%;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px);
+    z-index: 101;
+    background: var(--surface);
+  }
+
+  .nav-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 14px;
+    gap: 16px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo .logo-icon {
+    width: 34px;
+    height: 34px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .nav-logo .logo-icon svg { width: 18px; height: 18px; fill: white; }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--fg-mid);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .nav-links a:hover { background: var(--accent-subtle); color: var(--accent); }
+
+  .btn-nav {
+    background: var(--accent);
+    color: white !important;
+    padding: 8px 18px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+  }
+
+  .btn-nav:hover { background: var(--accent-light) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding-block: 72px 60px;
+  }
+
+  .hero-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-subtle);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 999px;
+    letter-spacing: 0.02em;
+    margin-bottom: 18px;
+  }
+
+  .hero-badge::before { content: "✦"; font-size: 10px; }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--fg);
+    text-wrap: balance;
+    margin-bottom: 16px;
+  }
+
+  h1 .accent { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--fg-mid);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 500px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s, transform 0.1s;
+  }
+
+  .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--fg-mid);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 13px 22px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Hero graphic */
+  .hero-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .stat-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .stat-card .label { font-size: 13px; color: var(--fg-muted); margin-bottom: 2px; }
+  .stat-card .value { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--fg); letter-spacing: -0.02em; }
+  .stat-card .value span { font-size: 13px; font-weight: 500; color: var(--fg-mid); margin-left: 4px; }
+
+  .progress-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .progress-item { }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--fg-mid);
+    margin-bottom: 5px;
+  }
+  .progress-bar-bg {
+    height: 6px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: var(--accent);
+  }
+
+  /* ── FEATURES ── */
+  .features {
+    padding-block: 72px;
+  }
+
+  .section-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin-bottom: 8px;
+  }
+
+  .section-sub {
+    font-size: 16px;
+    color: var(--fg-mid);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .feat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .feat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+  .feat-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .feat-card h3 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 6px;
+  }
+
+  .feat-card p {
+    font-size: 14px;
+    color: var(--fg-mid);
+    line-height: 1.65;
+  }
+
+  /* ── PATHS ── */
+  .paths {
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding-block: 72px;
+  }
+
+  .paths-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .path-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 28px 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .path-tag {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    width: fit-content;
+  }
+
+  .path-card h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1.3;
+  }
+
+  .path-card p { font-size: 14px; color: var(--fg-mid); line-height: 1.65; }
+
+  .path-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .path-list li {
+    font-size: 13px;
+    color: var(--fg-mid);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .path-list li::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  .path-cta {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: auto;
+  }
+
+  .path-cta:hover { text-decoration: underline; }
+
+  /* ── QUIZ SECTION ── */
+  .quiz-section {
+    padding-block: 72px;
+  }
+
+  .quiz-card {
+    background: var(--accent);
+    border-radius: 20px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .quiz-card::before {
+    content: "";
+    position: absolute;
+    right: -60px;
+    top: -60px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+  }
+
+  .quiz-card::after {
+    content: "";
+    position: absolute;
+    right: 80px;
+    bottom: -40px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .quiz-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 10px;
+  }
+
+  .quiz-card h2 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin-bottom: 10px;
+  }
+
+  .quiz-card p { font-size: 16px; color: rgba(255,255,255,0.75); line-height: 1.65; }
+
+  .btn-white {
+    background: white;
+    color: var(--accent);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+    flex-shrink: 0;
+  }
+
+  .btn-white:hover { opacity: 0.92; }
+
+  /* ── TCAS TIMELINE ── */
+  .tcas-section {
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding-block: 72px;
+  }
+
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+    margin-top: 40px;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    top: 24px;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .timeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    padding: 0 8px;
+    position: relative;
+  }
+
+  .tl-dot {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2.5px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent);
+    position: relative;
+    z-index: 1;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .tl-active .tl-dot {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    box-shadow: 0 0 0 4px var(--accent-subtle);
+  }
+
+  .tl-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--fg);
+  }
+
+  .tl-desc { font-size: 13px; color: var(--fg-mid); line-height: 1.5; }
+
+  .tl-period {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-subtle);
+    padding: 3px 10px;
+    border-radius: 99px;
+  }
+
+  .olympiad-section, .programs-section, .roadmap-section, .careers-section { padding-block: 72px; }
+  .olympiad-section, .careers-section { background: var(--surface); }
+  .programs-section, .roadmap-section { background: var(--bg-alt); border-block: 1px solid var(--border); }
+  .subject-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .subject-item, .compare-panel, .roadmap-panel, .career-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 22px; }
+  .subject-item h3, .compare-panel h3, .career-result h3 { font-family: var(--font-display); color: var(--fg); font-size: 16px; margin-bottom: 6px; }
+  .subject-item p, .career-result p { color: var(--fg-mid); font-size: 14px; line-height: 1.65; }
+  .section-note { margin-top: 20px; color: var(--fg-muted); font-size: 13px; }
+  .text-link { display: inline-flex; margin-top: 14px; color: var(--accent); font-size: 14px; font-weight: 600; text-decoration: none; }
+  .text-link:hover { text-decoration: underline; }
+  .compare-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .compare-fields { display: grid; gap: 14px; }
+  .field { display: grid; gap: 6px; }
+  .field label, .roadmap-controls label, .career-controls label { color: var(--fg-mid); font-size: 13px; font-weight: 600; }
+  .field input, .field textarea, .roadmap-controls select, .career-controls select { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--fg); font: 14px var(--font-body); }
+  .field textarea { min-height: 88px; resize: vertical; }
+  .field input:focus, .field textarea:focus, select:focus { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+  .tool-actions, .roadmap-summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
+  .tool-button { min-height: 44px; padding: 10px 16px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; font: 600 14px var(--font-body); cursor: pointer; }
+  .tool-button:hover { background: var(--accent-light); }
+  .tool-status, .roadmap-count { color: var(--fg-muted); font-size: 13px; }
+  .roadmap-controls, .career-controls { max-width: 420px; margin-bottom: 18px; }
+  .roadmap-controls select, .career-controls select { margin-top: 6px; }
+  .checklist { display: grid; gap: 8px; }
+  .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--fg-mid); font-size: 14px; }
+  .check-item input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--green); flex: 0 0 auto; }
+  .career-result { margin-top: 20px; padding: 20px; border-left: 4px solid var(--green); background: var(--green-subtle); }
+  .career-result .text-link { margin-top: 10px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding-block: 36px;
+  }
+
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--accent);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: 14px;
+    color: var(--fg-muted);
+    text-decoration: none;
+  }
+
+  .footer-links a:hover { color: var(--fg-mid); }
+
+  .footer-copy {
+    font-size: 13px;
+    color: var(--fg-muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .features-grid { grid-template-columns: 1fr; }
+    .paths-grid { grid-template-columns: 1fr; }
+    .quiz-card { grid-template-columns: 1fr; padding: 32px 24px; }
+    .timeline { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .timeline::before { display: none; }
+    .nav-links a:not(.btn-nav) { display: none; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .subject-grid, .compare-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 500px) {
+    .timeline { grid-template-columns: 1fr; }
+    .subject-grid, .compare-grid { grid-template-columns: 1fr; }
+    .tool-actions, .roadmap-summary { align-items: flex-start; flex-direction: column; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+  }
+</style>
+
+<!-- NAV -->
+<nav id="top">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#top">
+      <div class="logo-icon">
+        <svg viewBox="0 0 20 20"><path d="M10 2L3 7v11h5v-5h4v5h5V7L10 2z"/></svg>
+      </div>
+      DekThai
+    </a>
+    <div class="nav-links">
+      <a href="#olympiad">สอวน.</a>
+      <a href="#tcas">TCAS</a>
+      <a href="#programs">คณะ/หลักสูตร</a>
+      <a href="#careers">เส้นทางอาชีพ</a>
+      <a href="#roadmap" class="btn-nav">เริ่มวางแผน →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner container">
+    <div class="hero-content">
+      <div class="hero-badge">สำหรับนักเรียน ม.ปลาย</div>
+      <h1>วางแผนให้ชัด<br><span class="accent">เรียนให้ตรงเป้า</span></h1>
+      <p class="hero-sub">ข้อมูลครบ ตั้งแต่เตรียมสอบ สอวน. จนถึง TCAS ทุกรอบ พร้อม Roadmap ส่วนตัวที่บอกว่าต้องทำอะไร ตอนนี้</p>
+      <div class="hero-cta">
+        <a href="DekThai%20Quiz.html" class="btn-primary">ทำ Quiz แนะนำคณะ ✦</a>
+        <a href="#tcas" class="btn-ghost">ดูข้อมูล TCAS →</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--accent-subtle)">🎯</div>
+        <div>
+          <div class="label">ความคืบหน้า Roadmap ของคุณ</div>
+          <div class="value">เริ่มวางแผน <span>ตามเป้าหมายของคุณ</span></div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--green-subtle)">📅</div>
+        <div>
+          <div class="label">TCAS รอบ 1 Portfolio</div>
+          <div class="value">ดูประกาศล่าสุด <span>myTCAS และมหาวิทยาลัย</span></div>
+        </div>
+      </div>
+      <div class="stat-card" style="flex-direction:column; align-items:flex-start; gap:10px;">
+        <div style="font-size:13px;color:var(--fg-muted);font-weight:600;">ตัวอย่าง Roadmap: สอวน. คณิตศาสตร์</div>
+        <div class="progress-row" style="width:100%">
+          <div class="progress-item">
+            <div class="progress-meta"><span>Algebra</span><span>4/6 บท</span></div>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:67%"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-meta"><span>Combinatorics</span><span>2/5 บท</span></div>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:40%;background:var(--gold)"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-meta"><span>Number Theory</span><span>0/4 บท</span></div>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <div class="section-eyebrow">ทุกสิ่งที่ต้องการ</div>
+    <h2 class="section-title">ไม่ใช่แค่ข้อมูล — แต่รู้ว่าต้องทำอะไรต่อ</h2>
+    <p class="section-sub">เว็บอื่นให้ข้อมูลดิบ ที่นี่เราแปลมันเป็นแผนที่บอกว่า "ตอนนี้ ม.4 เทอม 2 ต้องทำอะไร" โดยเฉพาะ</p>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon-wrap" style="background:var(--accent-subtle)">🗺️</div>
+        <h3>Roadmap ส่วนตัว</h3>
+        <p>สร้าง checklist ตามเป้าหมายของคุณ — สอวน., แพทย์, วิศวะ, หรือสาขาที่อยากเข้า บอกทุกขั้นตอน</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-wrap" style="background:var(--green-subtle)">📊</div>
+        <h3>เปรียบเทียบหลักสูตร</h3>
+        <p>เทียบคณะเดียวกันข้ามมหาวิทยาลัย ดูรายวิชา โอกาสงาน และชีวิตนักศึกษา ไม่ใช่แค่คะแนนรับ</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-wrap" style="background:var(--gold-subtle)">🏆</div>
+        <h3>ข้อมูลสอวน. ครบ</h3>
+        <p>แต่ละสาขา เนื้อหาที่ต้องรู้ ข้อสอบเก่า Timeline ค่าย และเกณฑ์คัดเลือกแต่ละปี</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-wrap" style="background:var(--accent-subtle)">📅</div>
+        <h3>ปฏิทิน TCAS อัปเดต</h3>
+        <p>ไม่พลาดกำหนดสมัครทุกรอบ ตั้ง reminder ได้ พร้อมอธิบายเงื่อนไขแต่ละรอบแบบเข้าใจง่าย</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-wrap" style="background:var(--green-subtle)">💼</div>
+        <h3>เส้นทางอาชีพ</h3>
+        <p>เริ่มจาก "อยากเป็นอะไร" แล้วย้อนมาหาว่าต้องเรียนคณะไหน มหาวิทยาลัยไหน สายคณิต-วิทย์ไหน</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-wrap" style="background:var(--gold-subtle)">✨</div>
+        <h3>Quiz แนะนำคณะ</h3>
+        <p>ตอบ 15 คำถามสั้น ๆ แล้วรู้ว่าคณะไหนเหมาะกับตัวเอง อิงจากความสนใจและทักษะที่มี</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PATHS -->
+<section class="paths">
+  <div class="container">
+    <div class="section-eyebrow">เส้นทางสู่เป้าหมาย</div>
+    <h2 class="section-title">คุณกำลังเตรียมอะไร?</h2>
+    <p class="section-sub">เลือกเส้นทางที่ตรงกับเป้าหมาย เราจะพาไปตั้งแต่ต้นจนจบ</p>
+    <div class="paths-grid">
+      <div class="path-card">
+        <span class="path-tag" style="background:var(--accent-subtle);color:var(--accent)">สอวน. / โอลิมปิก</span>
+        <h3>เตรียมแข่ง สอวน.</h3>
+        <p>สำหรับนักเรียนที่มุ่งสู่ค่าย สอวน. และการแข่งขันวิชาการระดับชาติ</p>
+        <ul class="path-list">
+          <li>6 สาขา: คณิต ฟิสิกส์ เคมี ชีววิทยา ดาราศาสตร์ คอมพิวเตอร์</li>
+          <li>เนื้อหาที่ต้องรู้ + ข้อสอบเก่า</li>
+          <li>Timeline ค่าย 1 / ค่าย 2 ทุกสาขา</li>
+        </ul>
+        <a href="#olympiad" class="path-cta">ดูข้อมูลสอวน. →</a>
+      </div>
+      <div class="path-card">
+        <span class="path-tag" style="background:var(--green-subtle);color:var(--green)">TCAS ทุกรอบ</span>
+        <h3>เข้ามหาวิทยาลัย</h3>
+        <p>วางแผน TCAS ตั้งแต่ ม.4 ให้ทันทุก deadline และรู้ว่าต้องสะสมอะไรบ้าง</p>
+        <ul class="path-list">
+          <li>อธิบายรอบ 1-4 แบบเข้าใจง่าย</li>
+          <li>ปฏิทิน TCAS + แจ้งเตือน</li>
+          <li>Portfolio, TGAT, TPAT, A-Level</li>
+        </ul>
+        <a href="#tcas" class="path-cta">ดูข้อมูล TCAS →</a>
+      </div>
+      <div class="path-card">
+        <span class="path-tag" style="background:var(--gold-subtle);color:var(--gold)">เลือกคณะ</span>
+        <h3>ยังไม่รู้ว่าจะเรียนอะไร</h3>
+        <p>ยังไม่มีเป้าหมายชัด? ค้นหาจากความสนใจ แล้วย้อนมาหาคณะ/มหาวิทยาลัย</p>
+        <ul class="path-list">
+          <li>Quiz แนะนำคณะ 15 ข้อ</li>
+          <li>เปรียบเทียบหลักสูตรข้ามมหาวิทยาลัย</li>
+          <li>รายวิชา + โอกาสงาน + เงินเดือนเริ่มต้น</li>
+        </ul>
+        <a href="DekThai%20Quiz.html" class="path-cta">ทำ Quiz →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OLYMPIAD -->
+<section class="olympiad-section" id="olympiad">
+  <div class="container">
+    <div class="section-eyebrow">สอวน. / โอลิมปิกวิชาการ</div>
+    <h2 class="section-title">เริ่มจากสาขาที่ใช่ แล้ววางแผนอ่านเป็นบท</h2>
+    <p class="section-sub">เลือกวิชาที่สนใจเพื่อสำรวจหัวข้อพื้นฐานก่อน รายละเอียดการคัดเลือกและกำหนดการให้ยึดประกาศของศูนย์ สอวน. ในแต่ละปี</p>
+    <div class="subject-grid">
+      <article class="subject-item"><h3>คณิตศาสตร์</h3><p>พีชคณิต ทฤษฎีจำนวน คอมบินาทอริกส์ และเรขาคณิต</p></article>
+      <article class="subject-item"><h3>ฟิสิกส์</h3><p>กลศาสตร์ ไฟฟ้า คลื่น ความร้อน และการทดลอง</p></article>
+      <article class="subject-item"><h3>เคมี</h3><p>โครงสร้างอะตอม สมดุล ปริมาณสารสัมพันธ์ และเคมีอินทรีย์</p></article>
+      <article class="subject-item"><h3>ชีววิทยา</h3><p>เซลล์ พันธุศาสตร์ สรีรวิทยา นิเวศวิทยา และวิวัฒนาการ</p></article>
+      <article class="subject-item"><h3>คอมพิวเตอร์</h3><p>การคิดเชิงอัลกอริทึม โครงสร้างข้อมูล และการเขียนโปรแกรม</p></article>
+      <article class="subject-item"><h3>ดาราศาสตร์</h3><p>ระบบสุริยะ ดาวฤกษ์ กาแล็กซี และการวิเคราะห์ข้อมูลสังเกตการณ์</p></article>
+    </div>
+    <p class="section-note">หัวข้อเป็นแนวทางเริ่มต้น ไม่ใช่ขอบเขตข้อสอบอย่างเป็นทางการ ควรตรวจประกาศและข้อสอบย้อนหลังจากแหล่งที่เกี่ยวข้อง</p>
+    <a class="text-link" href="https://www.posn.or.th/" target="_blank" rel="noopener noreferrer">เว็บไซต์มูลนิธิ สอวน. →</a>
+  </div>
+</section>
+
+<!-- QUIZ CTA -->
+<section class="quiz-section">
+  <div class="container">
+    <div class="quiz-card">
+      <div>
+        <div class="quiz-eyebrow">ลองทำดู</div>
+        <h2>ไม่รู้จะเรียนคณะไหน? ให้ Quiz ช่วยได้</h2>
+        <p>ตอบ 15 คำถามเกี่ยวกับความชอบและทักษะ แล้วสำรวจสาขาที่อาจเหมาะกับคุณ</p>
+      </div>
+      <a href="DekThai%20Quiz.html" class="btn-white">เริ่ม Quiz เลย →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TCAS TIMELINE -->
+<section class="tcas-section" id="tcas">
+  <div class="container">
+    <div class="section-eyebrow">เตรียมเข้ามหาวิทยาลัย</div>
+    <h2 class="section-title">เข้าใจ TCAS ทั้ง 4 รอบ</h2>
+    <p class="section-sub">กำหนดการและเกณฑ์เปลี่ยนได้ทุกปี ตรวจวันรับสมัครและเงื่อนไขล่าสุดจากประกาศทางการก่อนวางแผนเสมอ</p>
+    <div class="timeline">
+      <div class="timeline-step tl-active">
+        <div class="tl-dot">1</div>
+        <div class="tl-label">รอบ Portfolio</div>
+        <div class="tl-period">ตามประกาศโครงการ</div>
+        <div class="tl-desc">สมัครด้วย Portfolio ผลงาน และเกียรติบัตร ไม่มีการสอบ</div>
+      </div>
+      <div class="timeline-step">
+        <div class="tl-dot">2</div>
+        <div class="tl-label">รอบ โควตา</div>
+        <div class="tl-period">ตามประกาศมหาวิทยาลัย</div>
+        <div class="tl-desc">โควตาพื้นที่ โควตาโรงเรียน ขึ้นอยู่กับแต่ละมหาวิทยาลัย</div>
+      </div>
+      <div class="timeline-step">
+        <div class="tl-dot">3</div>
+        <div class="tl-label">รอบ Admission</div>
+        <div class="tl-period">ตรวจปฏิทิน myTCAS</div>
+        <div class="tl-desc">TGAT / TPAT / A-Level คะแนนกลาง สมัครผ่าน mytcas.com</div>
+      </div>
+      <div class="timeline-step">
+        <div class="tl-dot">4</div>
+        <div class="tl-label">รอบ Direct Admission</div>
+        <div class="tl-period">ตามที่นั่งคงเหลือ</div>
+        <div class="tl-desc">มหาวิทยาลัยรับตรงเพิ่มเติม ที่นั่งเหลือหลังรอบ 3</div>
+      </div>
+    </div>
+    <a class="text-link" href="https://www.mytcas.com/" target="_blank" rel="noopener noreferrer">ตรวจปฏิทินและข้อมูล TCAS ที่ myTCAS →</a>
+  </div>
+</section>
+
+<!-- PROGRAM COMPARISON -->
+<section class="programs-section" id="programs">
+  <div class="container">
+    <div class="section-eyebrow">คณะ / หลักสูตร</div>
+    <h2 class="section-title">เทียบข้อมูลก่อนเลือกที่เรียน</h2>
+    <p class="section-sub">รวบรวมข้อมูลจากหลักสูตรและมหาวิทยาลัยที่สนใจ แล้วเทียบสิ่งที่สำคัญกับเป้าหมายของคุณ ข้อมูลในแบบฟอร์มนี้บันทึกไว้ในอุปกรณ์เครื่องนี้</p>
+    <div class="compare-grid">
+      <article class="compare-panel">
+        <h3>ตัวเลือก A</h3>
+        <div class="compare-fields">
+          <div class="field"><label for="program-a-school">มหาวิทยาลัย</label><input id="program-a-school" name="schoolA" placeholder="ชื่อมหาวิทยาลัย"></div>
+          <div class="field"><label for="program-a-name">คณะ / หลักสูตร</label><input id="program-a-name" name="programA" placeholder="ชื่อคณะหรือหลักสูตร"></div>
+          <div class="field"><label for="program-a-notes">รายวิชา จุดเด่น และโอกาสงาน</label><textarea id="program-a-notes" name="notesA" placeholder="บันทึกข้อมูลที่อยากนำมาเปรียบเทียบ"></textarea></div>
+        </div>
+      </article>
+      <article class="compare-panel">
+        <h3>ตัวเลือก B</h3>
+        <div class="compare-fields">
+          <div class="field"><label for="program-b-school">มหาวิทยาลัย</label><input id="program-b-school" name="schoolB" placeholder="ชื่อมหาวิทยาลัย"></div>
+          <div class="field"><label for="program-b-name">คณะ / หลักสูตร</label><input id="program-b-name" name="programB" placeholder="ชื่อคณะหรือหลักสูตร"></div>
+          <div class="field"><label for="program-b-notes">รายวิชา จุดเด่น และโอกาสงาน</label><textarea id="program-b-notes" name="notesB" placeholder="บันทึกข้อมูลที่อยากนำมาเปรียบเทียบ"></textarea></div>
+        </div>
+      </article>
+    </div>
+    <div class="tool-actions">
+      <button class="tool-button" id="save-comparison" type="button">บันทึกข้อมูลเปรียบเทียบ</button>
+      <span class="tool-status" id="comparison-status" aria-live="polite"></span>
+    </div>
+    <p class="section-note">ตรวจสอบรายวิชา ค่าใช้จ่าย และเกณฑ์รับจากเว็บไซต์ทางการของแต่ละหลักสูตรก่อนตัดสินใจ</p>
+  </div>
+</section>
+
+<!-- PERSONAL ROADMAP -->
+<section class="roadmap-section" id="roadmap">
+  <div class="container">
+    <div class="section-eyebrow">แผนของฉัน</div>
+    <h2 class="section-title">เปลี่ยนเป้าหมายให้เป็นขั้นตอนเล็ก ๆ</h2>
+    <p class="section-sub">เลือกเส้นทางแล้วทำเครื่องหมายสิ่งที่ทำเสร็จ ความคืบหน้าจะถูกเก็บไว้ในเบราว์เซอร์นี้</p>
+    <div class="roadmap-panel">
+      <div class="roadmap-controls">
+        <label for="roadmap-goal">เป้าหมายที่กำลังเตรียม</label>
+        <select id="roadmap-goal">
+          <option value="tcas">เตรียมเข้ามหาวิทยาลัย</option>
+          <option value="posn">เตรียมสอบ สอวน.</option>
+          <option value="explore">ค้นหาคณะที่เหมาะ</option>
+        </select>
+      </div>
+      <div class="checklist" id="roadmap-list"></div>
+      <div class="roadmap-summary">
+        <span class="roadmap-count" id="roadmap-count" aria-live="polite">0 / 0 ขั้นตอน</span>
+        <button class="tool-button" id="reset-roadmap" type="button">เริ่ม checklist ใหม่</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER EXPLORER -->
+<section class="careers-section" id="careers">
+  <div class="container">
+    <div class="section-eyebrow">เส้นทางอาชีพ</div>
+    <h2 class="section-title">เริ่มจากงานที่อยากทำ</h2>
+    <p class="section-sub">สำรวจกลุ่มคณะที่เกี่ยวข้อง แล้วใช้เป็นจุดเริ่มต้นค้นหาหลักสูตรจริง แต่ละอาชีพอาจมีได้หลายเส้นทาง</p>
+    <div class="career-panel">
+      <div class="career-controls">
+        <label for="career-select">อาชีพหรือบทบาทที่สนใจ</label>
+        <select id="career-select">
+          <option value="health">ดูแลสุขภาพผู้คน</option>
+          <option value="technology">สร้างเทคโนโลยีและซอฟต์แวร์</option>
+          <option value="teach">สอนและพัฒนาผู้เรียน</option>
+          <option value="design">ออกแบบอาคารและพื้นที่</option>
+          <option value="business">บริหารธุรกิจและการเงิน</option>
+          <option value="justice">ทำงานด้านกฎหมายและความยุติธรรม</option>
+        </select>
+      </div>
+      <div class="career-result" aria-live="polite">
+        <h3 id="career-title">สายสุขภาพ</h3>
+        <p id="career-description">ลองสำรวจแพทยศาสตร์ พยาบาลศาสตร์ และจิตวิทยา พร้อมตรวจสอบรายวิชาและใบประกอบวิชาชีพของแต่ละสาขา</p>
+        <a class="text-link" href="#programs">ไปเปรียบเทียบหลักสูตร →</a>
+      </div>
+      <a class="text-link" href="DekThai%20Quiz.html">ยังไม่แน่ใจ? ทำ Quiz แนะนำคณะ →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">DekThai</div>
+    <div class="footer-links">
+      <a href="#olympiad">สอวน.</a>
+      <a href="#tcas">TCAS</a>
+      <a href="#programs">คณะ/หลักสูตร</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#careers">เส้นทางอาชีพ</a>
+    </div>
+    <div class="footer-copy">© 2569 DekThai</div>
+  </div>
+</footer>
+
+<script>
+const roadmapTasks = {
+  tcas: [
+    'สำรวจคณะและมหาวิทยาลัยที่สนใจอย่างน้อย 3 แห่ง',
+    'ตรวจคุณสมบัติและวิชาที่ใช้ของหลักสูตรเป้าหมาย',
+    'วางแผนเตรียม Portfolio หรือสอบ TGAT / TPAT / A-Level',
+    'ติดตามกำหนดการจาก myTCAS และประกาศมหาวิทยาลัย',
+    'เตรียมเอกสารและตรวจข้อมูลก่อนยืนยันสิทธิ์'
+  ],
+  posn: [
+    'เลือกสาขาและตรวจคุณสมบัติของศูนย์สอบที่สมัครได้',
+    'ดาวน์โหลดขอบเขตเนื้อหาและข้อสอบย้อนหลัง',
+    'แบ่งหัวข้ออ่านเป็นแผนรายสัปดาห์',
+    'ฝึกทำโจทย์และจดหัวข้อที่ยังไม่แม่น',
+    'ติดตามประกาศรับสมัครและกำหนดการจากศูนย์ สอวน.'
+  ],
+  explore: [
+    'ทำ Quiz แนะนำคณะและบันทึกสาขาที่สนใจ',
+    'อ่านรายวิชาจริงของหลักสูตรที่สนใจ',
+    'เปรียบเทียบมหาวิทยาลัยอย่างน้อย 2 แห่ง',
+    'หาข้อมูลชีวิตนักศึกษาและงานหลังเรียนจบ',
+    'คุยกับครู รุ่นพี่ หรือผู้ทำงานในสาขานั้น'
+  ]
+};
+
+const roadmapGoal = document.getElementById('roadmap-goal');
+const roadmapList = document.getElementById('roadmap-list');
+const roadmapCount = document.getElementById('roadmap-count');
+
+function renderRoadmap() {
+  const goal = roadmapGoal.value;
+  const storageKey = `dekthai-roadmap-${goal}`;
+  let completed = [];
+  try { completed = JSON.parse(localStorage.getItem(storageKey) || '[]'); } catch {}
+  roadmapList.innerHTML = '';
+  roadmapTasks[goal].forEach((task, index) => {
+    const label = document.createElement('label');
+    label.className = 'check-item';
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = Boolean(completed[index]);
+    checkbox.addEventListener('change', () => {
+      completed[index] = checkbox.checked;
+      localStorage.setItem(storageKey, JSON.stringify(completed));
+      updateRoadmapCount();
+    });
+    const text = document.createElement('span');
+    text.textContent = task;
+    label.append(checkbox, text);
+    roadmapList.appendChild(label);
+  });
+  updateRoadmapCount();
+}
+
+function updateRoadmapCount() {
+  const checked = roadmapList.querySelectorAll('input:checked').length;
+  roadmapCount.textContent = `${checked} / ${roadmapList.children.length} ขั้นตอน`;
+}
+
+roadmapGoal.addEventListener('change', renderRoadmap);
+document.getElementById('reset-roadmap').addEventListener('click', () => {
+  localStorage.removeItem(`dekthai-roadmap-${roadmapGoal.value}`);
+  renderRoadmap();
+});
+
+const comparisonFields = ['schoolA', 'programA', 'notesA', 'schoolB', 'programB', 'notesB'];
+const comparisonStatus = document.getElementById('comparison-status');
+try {
+  const savedComparison = JSON.parse(localStorage.getItem('dekthai-program-comparison') || '{}');
+  comparisonFields.forEach(name => {
+    const field = document.querySelector(`[name="${name}"]`);
+    if (field && savedComparison[name]) field.value = savedComparison[name];
+  });
+} catch {}
+
+document.getElementById('save-comparison').addEventListener('click', () => {
+  const comparison = {};
+  comparisonFields.forEach(name => {
+    comparison[name] = document.querySelector(`[name="${name}"]`).value.trim();
+  });
+  localStorage.setItem('dekthai-program-comparison', JSON.stringify(comparison));
+  comparisonStatus.textContent = 'บันทึกข้อมูลไว้ในอุปกรณ์นี้แล้ว';
+});
+
+const careerSuggestions = {
+  health: ['สายสุขภาพ', 'ลองสำรวจแพทยศาสตร์ พยาบาลศาสตร์ และจิตวิทยา พร้อมตรวจสอบรายวิชาและใบประกอบวิชาชีพของแต่ละสาขา'],
+  technology: ['สายเทคโนโลยี', 'ลองสำรวจวิทยาการคอมพิวเตอร์และวิศวกรรมศาสตร์ โดยดูทั้งพื้นฐานคณิตศาสตร์ การเขียนโปรแกรม และผลงานที่ได้ทำ'],
+  teach: ['สายการศึกษา', 'ลองสำรวจครุศาสตร์/ศึกษาศาสตร์และจิตวิทยา พร้อมดูวิชาเอก การฝึกสอน และเส้นทางใบอนุญาตที่เกี่ยวข้อง'],
+  design: ['สายการออกแบบพื้นที่', 'ลองสำรวจสถาปัตยกรรมและวิศวกรรมศาสตร์ โดยดูสัดส่วนงานออกแบบ สตูดิโอ และวิชาด้านโครงสร้าง'],
+  business: ['สายธุรกิจและการเงิน', 'ลองสำรวจบริหารธุรกิจและบัญชี พร้อมเปรียบเทียบวิชาเฉพาะทาง การฝึกงาน และสายงานหลังเรียนจบ'],
+  justice: ['สายกฎหมาย', 'ลองสำรวจนิติศาสตร์และหลักสูตรที่เกี่ยวข้อง พร้อมดูวิชากฎหมาย การฝึกประสบการณ์ และเส้นทางวิชาชีพ']
+};
+
+document.getElementById('career-select').addEventListener('change', event => {
+  const [title, description] = careerSuggestions[event.target.value];
+  document.getElementById('career-title').textContent = title;
+  document.getElementById('career-description').textContent = description;
+});
+
+renderRoadmap();
+</script>
+</body></html>
